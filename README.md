@@ -60,6 +60,6 @@ What the test can't tell you is how the border looks on a real SGB or whether re
 
 ## License
 
-GPLv2 with a linking exception, the same terms as GBDK-2020. See [LICENSE](LICENSE).
+GPLv2 ([LICENSE](LICENSE)) with a linking exception ([LINKING-EXCEPTION](LINKING-EXCEPTION)), the same terms as GBDK-2020.
 `sgb_border.c` is derived from GBDK-2020's `sgb_border` example.
 Games that include it don't have to be GPL, and shipped ROMs need no credit (though it's appreciated).

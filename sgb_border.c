@@ -3,7 +3,7 @@
  *
  * Derived from the GBDK-2020 example gbdk-lib/examples/gb/sgb_border
  * (https://github.com/gbdk-2020/gbdk-2020), GPLv2 + linking exception; see
- * LICENSE. Changes from the stock version:
+ * LICENSE and LINKING-EXCEPTION. Changes from the stock version:
  *
  *   - the stock >128-tile path calls set_bkg_data(0, 0, tiledata), which
  *     transfers nothing at all;
