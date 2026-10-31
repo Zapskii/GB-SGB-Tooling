@@ -1,3 +1,16 @@
+# Build output (make clean removes it)
 build/
+
+# Python
 __pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Local Claude Code settings
 .claude/
