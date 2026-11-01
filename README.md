@@ -57,7 +57,11 @@ make GBDK_HOME=/path/to/gbdk gearboy    # frame saved to build/gearboy.png
                   (const unsigned char *)border_data_palettes, sizeof(border_data_palettes));
    ```
    On a plain Game Boy it does nothing. Set SGB palette 0 afterwards too (a `PAL01` packet, as `example/main.c` does): a real SGB starts with a default palette, but some emulators start it all black and your game won't show.
-5. Optionally: `python3 sgb_border_test.py game.gb border.png border_data.c`
+5. Optionally, check it arrives:
+   ```sh
+   python3 sgb_border_test.py game.gb border.png border_data.c   # PyBoy: the bytes
+   python3 gearboy_check.py game.gb border.png                  # Gearboy: the picture
+   ```
 
 `python3 mkborder.py --help` lists the colour and layout options.
 
@@ -65,10 +69,14 @@ make GBDK_HOME=/path/to/gbdk gearboy    # frame saved to build/gearboy.png
 
 - **The Game Boy screen must stay transparent**: it's the 160×144 area at (48, 40). `--art` clears anything painted there and says so.
 - **Colour 0 of every palette is invisible**: the SGB draws it as the backdrop. png2asset only reserves it in palettes that happen to contain a transparent pixel, so its brightest colour can vanish. `mkborder.py` reserves slot 0 everywhere, and `-keep_palette_order` makes png2asset keep that.
-- **3 palettes of 15 colours, and at most 255 unique tiles.** `mkborder.py` fails with a clear message if the art needs more.
+- **3 palettes of 15 colours, and at most 255 unique tiles.** A border may only use SNES palettes 4–6; the SGB's own menus use 7. `mkborder.py` fails with a clear message if the art needs more.
 - **The transfer overwrites VRAM**: load your graphics after `set_sgb_border()`, not before.
 
 `make test` checks the bytes PyBoy's SGB receives; `make gearboy` checks the picture Gearboy draws from them, pixel for pixel. Neither is real hardware: whether a real SGB detects the cart and how the border looks on a TV is still worth checking once on the real thing.
+
+## Development
+
+`make test` runs `test_mkborder.py` (no GBDK needed) and then `sgb_border_test.py` on the demo ROM. GitHub Actions runs both on every push, with GBDK-2020 4.5.0: once with a drawn border and once with generated `--art` big enough to need two palettes and both transfer blocks. `make gearboy` is manual only.
 
 ## License
 
