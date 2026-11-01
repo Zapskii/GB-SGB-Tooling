@@ -1,15 +1,7 @@
 #ifndef __SGB_BORDER_H_INCLUDE
 #define __SGB_BORDER_H_INCLUDE
 
-#include <gb/gb.h>
-#include <stdint.h>
-#include <gb/sgb.h>
-
-/** Pack a colour for an SGB palette: 5 bits a channel, blue in the low bits.
-
-    Only used if the border art is ever built by hand rather than by
-    png2asset; border_data_palettes[] already arrives packed. */
-#define SNES_RGB(R,G,B) (uint16_t)((B) << 10 | (G) << 5 | (R))
+#include <stddef.h>
 
 /** Installs the Super Game Boy border.
 
