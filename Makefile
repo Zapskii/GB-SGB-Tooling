@@ -47,6 +47,7 @@ $(ROM): example/main.c sgb_border.c sgb_border.h build/border_data.c
 	       example/main.c sgb_border.c build/border_data.c
 
 test: $(ROM)
+	$(PYTHON) test_mkborder.py
 	$(PYTHON) sgb_border_test.py $(ROM) build/border.png build/border_data.c
 
 clean:

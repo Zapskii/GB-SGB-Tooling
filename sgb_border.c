@@ -70,6 +70,9 @@ void set_sgb_border(const unsigned char *tiledata, size_t tiledata_size,
         // 255 tiles; mkborder.py refuses art that needs more, and
         // sgb_border_test.py checks the ROM. Exactly
         // 128 tiles is block 0 only, so block 1 must not be transferred.
+        // More than 255 tiles comes out as ntiles 0 (256 wraps the uint8_t,
+        // and anything larger is zeroed here), so an oversized border sends
+        // no tiles at all, silently.
         uint8_t ntiles = (tiledata_size > 256 * 32) ? 0 : tiledata_size >> 5;
         if (ntiles >= 128U) {
             set_bkg_data(0, 255, tiledata);

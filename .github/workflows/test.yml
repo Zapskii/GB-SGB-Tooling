@@ -19,6 +19,9 @@ jobs:
       - name: Install PyBoy and Pillow
         run: pip install "pyboy>=2.8.0" pillow
 
+      - name: mkborder.py checks (no GBDK needed)
+        run: python3 test_mkborder.py
+
       - name: Install GBDK-2020
         run: |
           curl -fsSL "https://github.com/gbdk-2020/gbdk-2020/releases/download/$GBDK_VERSION/gbdk-linux64.tar.gz" \

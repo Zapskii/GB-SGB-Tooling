@@ -12,6 +12,7 @@ make the art, convert it, send it to the SGB, and test that it arrived.
 | `mkborder.py` | Draws a 256×224 border (gradient, frame, title) or prepares your own art, packed so png2asset gets the SGB's palette rules right |
 | `sgb_border.c` / `.h` | `set_sgb_border()`, the GBDK example with its transfer bugs fixed |
 | `sgb_border_test.py` | Boots your ROM in PyBoy with SGB support and compares the border bytes the SGB received with `border_data.c` |
+| `test_mkborder.py` | Fast checks of `mkborder.py`'s limits; standard library only |
 | `example/main.c`, `Makefile` | A minimal demo ROM that ties it together |
 
 ## Quick start
