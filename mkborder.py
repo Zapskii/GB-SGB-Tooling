@@ -296,6 +296,12 @@ def main(argv=None):
     p.add_argument("--shadow", type=colour, default=colour("#000000"), help="title shadow")
     p.add_argument("--no-shadow", dest="shadow", action="store_const", const=None)
     a = p.parse_args(argv)
+    if a.art and (a.title or a.subtitle):
+        p.error("--art is your own finished border; --title/--subtitle only apply to the drawn one")
+    if a.bands < 1:
+        p.error("--bands must be at least 1")
+    if a.frame_width < 0:
+        p.error("--frame-width can't be negative")
 
     px = load_art(a.art) if a.art else draw(a)
     px = [[snap(c) for c in row] for row in px]

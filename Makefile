@@ -17,11 +17,24 @@ LCC := $(GBDK_HOME)/bin/lcc
 P2A := $(GBDK_HOME)/bin/png2asset
 ROM := build/demo.gb
 
+BORDER_ARGS := $(if $(ART),--art "$(ART)",--title "$(TITLE)" --subtitle "$(SUBTITLE)")
+
 .PHONY: all test clean
 all: $(ROM)
 
-build/border.png: mkborder.py
-	$(PYTHON) mkborder.py $@ $(if $(ART),--art "$(ART)",--title "$(TITLE)" --subtitle "$(SUBTITLE)")
+# The border arguments are kept in build/border.args, rewritten only when they
+# change, so a new TITLE or ART rebuilds the border and an unchanged one does
+# not. This runs while the Makefile is read, before make looks at timestamps,
+# and deletes the old outputs outright: make 3.81 (macOS) compares mtimes to
+# the second, so a stamp from the same second as the last build would not
+# look newer.
+QUOTED_ARGS := '$(subst ','\'',$(BORDER_ARGS))'
+$(shell mkdir -p build; printf '%s\n' $(QUOTED_ARGS) | cmp -s - build/border.args \
+  || { printf '%s\n' $(QUOTED_ARGS) > build/border.args; \
+       rm -f build/border.png build/border_data.c build/border_data.h $(ROM); })
+
+build/border.png: mkborder.py build/border.args $(ART)
+	$(PYTHON) mkborder.py $@ $(BORDER_ARGS)
 
 # -keep_palette_order: use mkborder.py's palettes, which keep slot 0 free.
 build/border_data.c build/border_data.h: build/border.png
