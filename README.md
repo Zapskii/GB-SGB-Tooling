@@ -1,5 +1,7 @@
 # GB-SGB-Tooling
 
+[![test](https://github.com/Zapskii/GB-SGB-Tooling/actions/workflows/test.yml/badge.svg)](https://github.com/Zapskii/GB-SGB-Tooling/actions/workflows/test.yml)
+
 Super Game Boy borders for [GBDK-2020](https://github.com/gbdk-2020/gbdk-2020) games:
 make the art, convert it, send it to the SGB, and test that it arrived.
 

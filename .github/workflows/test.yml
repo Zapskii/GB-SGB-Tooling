@@ -1,0 +1,55 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      GBDK_VERSION: "4.5.0"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install PyBoy and Pillow
+        run: pip install "pyboy>=2.8.0" pillow
+
+      - name: Install GBDK-2020
+        run: |
+          curl -fsSL "https://github.com/gbdk-2020/gbdk-2020/releases/download/$GBDK_VERSION/gbdk-linux64.tar.gz" \
+            | tar xz -C "$HOME"
+
+      - name: Drawn border
+        run: make test GBDK_HOME="$HOME/gbdk"
+
+      # Your-own-art path (--art), with art that needs two palettes and more
+      # than 128 tiles, so the transfer's second CHR_TRN block is used too.
+      - name: Own art
+        run: |
+          python3 - <<'PY'
+          import random
+          from PIL import Image
+          # 20 colours (two palettes' worth), 2 per tile, 80 random 8x8 patterns repeated round the border.
+          cols = [(r, g, b, 255) for r, g, b in
+                  [(i * 24, 255 - i * 24, 64 + i * 8) for i in range(10)] +
+                  [(255 - i * 24, 32 + i * 16, 200 - i * 16) for i in range(10)]]
+          im = Image.new("RGBA", (256, 224))
+          for ty in range(28):
+              for tx in range(32):
+                  if 6 <= tx < 26 and 5 <= ty < 23: continue
+                  n = (ty * 32 + tx) % 80
+                  rnd = random.Random(n)
+                  g = 10 * (tx >= 16)
+                  fg, bg = cols[g + n % 10], cols[g + (n + 3) % 10]
+                  for y in range(8):
+                      for x in range(8):
+                          im.putpixel((tx * 8 + x, ty * 8 + y), fg if rnd.random() < 0.5 else bg)
+          im.save("art.png")
+          PY
+          make clean
+          make test GBDK_HOME="$HOME/gbdk" ART=art.png
