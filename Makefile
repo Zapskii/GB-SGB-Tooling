@@ -38,7 +38,7 @@ build/border.png: mkborder.py build/border.args $(ART)
 
 # -keep_palette_order: use mkborder.py's palettes, which keep slot 0 free.
 build/border_data.c build/border_data.h: build/border.png
-	$(P2A) $< -map -bpp 4 -max_palettes 4 -keep_palette_order \
+	$(P2A) $< -map -bpp 4 -max_palettes 3 -keep_palette_order \
 	       -pack_mode sgb -use_map_attributes -c build/border_data.c
 
 # -Wm-ys sets the SGB flag in the header; without it an SGB shows no border.

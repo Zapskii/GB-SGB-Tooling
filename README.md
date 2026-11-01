@@ -5,6 +5,8 @@
 Super Game Boy borders for [GBDK-2020](https://github.com/gbdk-2020/gbdk-2020) games:
 make the art, convert it, send it to the SGB, and test that it arrived.
 
+![The demo ROM with a border from `make TITLE="MY GAME"`, as a Super Game Boy shows it](docs/border.png)
+
 | File | What it does |
 |---|---|
 | `mkborder.py` | Draws a 256×224 border (gradient, frame, title) or prepares your own art, packed so png2asset gets the SGB's palette rules right |
@@ -33,7 +35,7 @@ make GBDK_HOME=/path/to/gbdk ART=my_border.png test
 2. Make the border and convert it:
    ```sh
    python3 mkborder.py border.png --title "MY GAME"      # or --art my_art.png
-   png2asset border.png -map -bpp 4 -max_palettes 4 -keep_palette_order \
+   png2asset border.png -map -bpp 4 -max_palettes 3 -keep_palette_order \
              -pack_mode sgb -use_map_attributes -c border_data.c
    ```
 3. Build with `-Wm-ys` so the header marks the cart SGB-enhanced:

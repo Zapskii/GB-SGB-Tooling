@@ -13,7 +13,7 @@ Two ways in:
 
 Either way the output is an indexed PNG laid out for
 
-    png2asset out.png -map -bpp 4 -max_palettes 4 -keep_palette_order \\
+    png2asset out.png -map -bpp 4 -max_palettes 3 -keep_palette_order \\
               -pack_mode sgb -use_map_attributes -c border_data.c
 
 What this does that png2asset will not:
@@ -44,7 +44,7 @@ GB_X, GB_Y, GB_W, GB_H = 48, 40, 160, 144
 TILE = 8                      # the SGB border is laid out in 8x8 tiles
 PAL_COLORS = 16               # entries in one SGB border palette
 PAL_CAP = PAL_COLORS - 1      # ...of which slot 0 is reserved, so 15 to draw with
-PAL_LIMIT = 3                 # the border is drawn with SNES palettes 4, 5 and 6 only
+PAL_LIMIT = 3                 # a border may use SNES palettes 4-6; the SGB menus use 7
 TILE_LIMIT = 255              # see the block split in sgb_border.c
 RESERVED = (0, 0, 0)          # what sits in slot 0; never drawn, so the value is arbitrary
 CLEAR = (0, 0, 0, 0)
@@ -290,7 +290,7 @@ def main(argv=None):
     p.add_argument("--top", type=colour, default=colour("#1f1a40"), help="gradient top")
     p.add_argument("--bottom", type=colour, default=colour("#a5416f"), help="gradient bottom")
     p.add_argument("--bands", type=int, default=8, help="gradient steps (default 8)")
-    p.add_argument("--frame", type=colour, default=colour("#ffffff"), help="frame colour")
+    p.add_argument("--frame", type=colour, default=colour("#0c0818"), help="frame colour")
     p.add_argument("--frame-width", type=int, default=2, help="0 for no frame")
     p.add_argument("--ink", type=colour, default=colour("#fff1c9"), help="text colour")
     p.add_argument("--shadow", type=colour, default=colour("#000000"), help="title shadow")

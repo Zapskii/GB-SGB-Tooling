@@ -136,10 +136,12 @@ def main():
           "the border is %d tiles, inside the transfer's %d-tile ceiling"
           % (n_tiles, TILE_CEILING))
     # set_sgb_border() loads the palettes at tile 128, where PCT_TRN expects
-    # them; a partial or oversized blob would colour the border wrongly.
-    check(0 < len(want_pal) <= 128 and len(want_pal) % 32 == 0,
+    # them; a partial blob would colour the border wrongly. A border may use
+    # SNES palettes 4-6 only -- the SGB's own menus use 7 (Pan Docs, SGB
+    # border commands) -- so three at most.
+    check(0 < len(want_pal) <= 96 and len(want_pal) % 32 == 0,
           "the palette blob is %d bytes: whole 16-colour palettes, within the "
-          "SGB's four" % len(want_pal))
+          "border's three (4-6)" % len(want_pal))
     # The SGB draws colour 0 of every border palette as the backdrop, so a
     # used colour there transfers perfectly and is simply missing on screen.
     # mkborder.py reserves it; this catches art packed any other way.
