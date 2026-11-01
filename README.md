@@ -31,6 +31,12 @@ Or with your own art, any 256×224 PNG:
 make GBDK_HOME=/path/to/gbdk ART=my_border.png test
 ```
 
+If you have [Gearboy](https://github.com/drhelius/Gearboy) installed, check the border in a second emulator too:
+
+```sh
+make GBDK_HOME=/path/to/gbdk gearboy    # frame saved to build/gearboy.png
+```
+
 ## Using it in your game
 
 1. Copy `sgb_border.c` and `sgb_border.h` into your project.
