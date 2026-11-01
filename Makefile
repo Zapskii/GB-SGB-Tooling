@@ -19,7 +19,7 @@ ROM := build/demo.gb
 
 BORDER_ARGS := $(if $(ART),--art "$(ART)",--title "$(TITLE)" --subtitle "$(SUBTITLE)")
 
-.PHONY: all test clean
+.PHONY: all test gearboy clean
 all: $(ROM)
 
 # The border arguments are kept in build/border.args, rewritten only when they
@@ -49,6 +49,10 @@ $(ROM): example/main.c sgb_border.c sgb_border.h build/border_data.c
 test: $(ROM)
 	$(PYTHON) test_mkborder.py
 	$(PYTHON) sgb_border_test.py $(ROM) build/border.png build/border_data.c
+
+# Manual second-emulator check: Gearboy draws the border, compared with the art.
+gearboy: $(ROM)
+	$(PYTHON) gearboy_check.py $(ROM) build/border.png --shot build/gearboy.png
 
 clean:
 	rm -rf build

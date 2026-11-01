@@ -13,6 +13,7 @@ make the art, convert it, send it to the SGB, and test that it arrived.
 | `sgb_border.c` / `.h` | `set_sgb_border()`, the GBDK example with its transfer bugs fixed |
 | `sgb_border_test.py` | Boots your ROM in PyBoy with SGB support and compares the border bytes the SGB received with `border_data.c` |
 | `test_mkborder.py` | Fast checks of `mkborder.py`'s limits; standard library only |
+| `gearboy_check.py` | Optional second opinion: runs the ROM in [Gearboy](https://github.com/drhelius/Gearboy) headless and compares the border it draws with your art (`make gearboy`) |
 | `example/main.c`, `Makefile` | A minimal demo ROM that ties it together |
 
 ## Quick start
@@ -49,7 +50,7 @@ make GBDK_HOME=/path/to/gbdk ART=my_border.png test
                   border_data_map, sizeof(border_data_map),
                   (const unsigned char *)border_data_palettes, sizeof(border_data_palettes));
    ```
-   On a plain Game Boy it does nothing.
+   On a plain Game Boy it does nothing. Set SGB palette 0 afterwards too (a `PAL01` packet, as `example/main.c` does): a real SGB starts with a default palette, but some emulators start it all black and your game won't show.
 5. Optionally: `python3 sgb_border_test.py game.gb border.png border_data.c`
 
 `python3 mkborder.py --help` lists the colour and layout options.
@@ -61,7 +62,7 @@ make GBDK_HOME=/path/to/gbdk ART=my_border.png test
 - **3 palettes of 15 colours, and at most 255 unique tiles.** `mkborder.py` fails with a clear message if the art needs more.
 - **The transfer overwrites VRAM**: load your graphics after `set_sgb_border()`, not before.
 
-What the test can't tell you is how the border looks on a real SGB or whether real hardware detects it. Check that on hardware or in an accurate emulator.
+`make test` checks the bytes PyBoy's SGB receives; `make gearboy` checks the picture Gearboy draws from them, pixel for pixel. Neither is real hardware: whether a real SGB detects the cart and how the border looks on a TV is still worth checking once on the real thing.
 
 ## License
 
