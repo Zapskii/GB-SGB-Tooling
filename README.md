@@ -1,11 +1,25 @@
-[More Game Boy projects at retro.zapski.com](https://retro.zapski.com)
-
-# GB-SGB-Tooling
+# GB-SGB-Tooling — Super Game Boy Asset Pipeline
 
 [![test](https://github.com/Zapskii/GB-SGB-Tooling/actions/workflows/test.yml/badge.svg)](https://github.com/Zapskii/GB-SGB-Tooling/actions/workflows/test.yml)
 
 Super Game Boy borders for [GBDK-2020](https://github.com/gbdk-2020/gbdk-2020) games:
 make the art, convert it, send it to the SGB, and test that it arrived.
+
+📖 **[Read the full write-up](https://retro.zapski.com/blog/gb-sgb-tooling-super-game-boy-borders)** | 🎮 **[See it in action: FPS Dungeon](https://retro.zapski.com/play/fps-dungeon)**
+
+## Live case study: FPS Dungeon
+
+This kit is used for the stone-brick border in **[FPS Dungeon](https://retro.zapski.com/blog/fps-dungeon-game-boy-review)**,
+a real-time raycaster running on the original 1989 Game Boy. [Play it in your browser](https://retro.zapski.com/play/fps-dungeon).
+
+## Resources and homebrew guides
+
+More dev logs, technical breakdowns and emulation history on **[Zapski Retro](https://retro.zapski.com)**:
+
+* **[GB-SGB-Tooling write-up](https://retro.zapski.com/blog/gb-sgb-tooling-super-game-boy-borders):** why we built it, the transfer bugs we fixed, and how the tests work.
+* **[Making Game Boy games in 2026](https://retro.zapski.com/blog/making-game-boy-games-2026-tools-missing):** the tools still missing for Game Boy development.
+* **[Blog](https://retro.zapski.com/blog):** reviews and deep dives into Game Boy homebrew.
+* **[Console timeline](https://retro.zapski.com/consoles):** Nintendo's handhelds and the rest, console by console.
 
 ![The demo ROM with a border from `make TITLE="MY GAME"`, as a Super Game Boy shows it](docs/border.png)
 
